@@ -1,4 +1,4 @@
-spring:
+dspring:
   cloud:
     gateway:
       default-filters:

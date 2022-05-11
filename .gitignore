@@ -4,3 +4,13 @@
 /.idea/encodings.xml
 /.idea/jarRepositories.xml
 /.idea/jpa-buddy.xml
+Maven_*
+/workspace.xml
+dbnavigator.xml
+misc.xml
+/libraries
+modules.xml
+vcs.xml
+workspace.xml
+springprojectsadv.iml
+*/.idea/*
