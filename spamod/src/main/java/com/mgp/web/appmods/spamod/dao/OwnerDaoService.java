@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.Optional;
 
 public interface OwnerDaoService extends JpaRepository<Owner, Long> {
-    Optional<Owner> findByOid(String oid );
+    Optional<Owner> findByOid(String oid );// variable name should be same as the column name
+
 
 }
