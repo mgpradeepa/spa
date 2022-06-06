@@ -10,8 +10,8 @@ import java.io.Serializable;
 @Getter
 @Setter
 @Entity
-@NoArgsConstructor
-@Table(name = "owner")
+
+@Table(name = "owner", uniqueConstraints = {@UniqueConstraint(columnNames = {"companyId"})})
 public class Owner implements Serializable {
 
     @Id
@@ -31,4 +31,16 @@ public class Owner implements Serializable {
     private String ssn;
 
 
+    @ManyToOne
+    @JoinColumn(name="companyId")
+    private Company company;
+
+    public Owner() {}
+
+    public Owner(@NonNull String oid, String ownerName, String ssn, Company c) {
+        this.oid = oid;
+        this.ownerName = ownerName;
+        this.ssn  = ssn;
+        this.company = c;
+    }
 }

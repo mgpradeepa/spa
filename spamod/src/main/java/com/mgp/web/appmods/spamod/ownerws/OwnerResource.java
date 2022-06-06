@@ -1,7 +1,9 @@
 package com.mgp.web.appmods.spamod.ownerws;
 
 
+import com.mgp.web.appmods.spamod.dao.CompanyDaoService;
 import com.mgp.web.appmods.spamod.dao.OwnerDaoService;
+import com.mgp.web.appmods.spamod.entity.Company;
 import com.mgp.web.appmods.spamod.entity.Owner;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,11 +19,15 @@ public class OwnerResource {
     @Autowired
     OwnerDaoService ownerDaoService;
 
+    @Autowired
+    CompanyDaoService companyDaoService;
+
 
     @PostMapping(value = "/", produces = "application/json")
     public ResponseEntity<Owner> create (@RequestBody Owner owner ) {
         try {
-           Owner createdOwner = ownerDaoService.save(new Owner(owner.getOid(),owner.getOwnerName(), owner.getSsn()));
+            Company c  = companyDaoService.findByCompanyId(owner.getCompany().getCompanyId()).get();
+            Owner createdOwner = ownerDaoService.save(new Owner(owner.getOid(),owner.getOwnerName(), owner.getSsn(),c));
            return new ResponseEntity<>(createdOwner, HttpStatus.CREATED);
         }
         catch(Exception e ) {

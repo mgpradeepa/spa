@@ -1,8 +1,6 @@
 package com.mgp.web.appmods.spamod.entity;
 
 import lombok.*;
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -37,9 +35,4 @@ public class Company  implements Serializable {
     @Column(name = "phoneNumber")
     private Long phoneNumber;
 
-    @NonNull
-    @ManyToOne(fetch = FetchType.EAGER, optional = false)
-    @JoinColumn(name="oid", nullable = false)
-    @OnDelete(action = OnDeleteAction.CASCADE)
-    private Owner owners;
 }

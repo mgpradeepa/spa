@@ -1,15 +1,12 @@
 package com.mgp.web.appmods.spamod.companyws;
 
 import com.mgp.web.appmods.spamod.dao.CompanyDaoService;
-import com.mgp.web.appmods.spamod.dao.OwnerDaoService;
 import com.mgp.web.appmods.spamod.entity.Company;
-import com.mgp.web.appmods.spamod.entity.Owner;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
 import javax.websocket.server.PathParam;
 import java.util.List;
 import java.util.Optional;
@@ -20,9 +17,6 @@ public class CompanyResource {
 
     @Autowired
     CompanyDaoService companyDaoService;
-
-    @Autowired
-    OwnerDaoService ownerDaoService;
 
 
     @GetMapping(value = "/", produces = "application/json")
@@ -39,19 +33,14 @@ public class CompanyResource {
     }
 
 
-    @PostMapping(value = "/{ownerId}", produces = "application/json")
-    public ResponseEntity<Company> create(@PathVariable (value = "ownerId") String oid, @Valid  @RequestBody Company company) {
+    @PostMapping(produces = "application/json"  )
+    public ResponseEntity<Company> createCompany (@RequestBody Company company) {
         try {
-
             Company comp = null;
-                Optional<Owner> owner = ownerDaoService.findByOid(oid);
-                if(owner.isPresent()){
+            comp = companyDaoService.save(new Company(company.getCompanyId(), company.getCompanyName(), company.getCountry(), company.getPhoneNumber()));
 
-                    comp = companyDaoService.save(new Company(company.getCompanyId(), company.getCompanyName(), company.getCountry(), company.getPhoneNumber(), owner.get()));
-                }
-
-            return new ResponseEntity<> (comp,HttpStatus.CREATED);
-        }catch(Exception e) {
+            return new ResponseEntity<>(comp, HttpStatus.CREATED);
+        } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
@@ -77,7 +66,6 @@ public class CompanyResource {
             updateCompany.setCompanyName(comp.getCompanyName());
             updateCompany.setCountry(comp.getCountry());
             updateCompany.setPhoneNumber(comp.getPhoneNumber());
-            updateCompany.setOwners(comp.getOwners());
             return new ResponseEntity<>(companyDaoService.save(updateCompany), HttpStatus.OK);
         }
         else {
