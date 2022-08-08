@@ -20,7 +20,7 @@
 
 	<modules>
 		<module>spamod</module>
-<!--	 	<module>authsecurity</module>-->
+	 	<module>authsecurity</module>
 	</modules>
 
 

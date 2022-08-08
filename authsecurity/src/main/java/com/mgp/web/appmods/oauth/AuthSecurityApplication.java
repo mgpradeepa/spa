@@ -5,10 +5,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.security.reactive.ReactiveUserDetailsServiceAutoConfiguration;
 
 @SpringBootApplication(exclude = ReactiveUserDetailsServiceAutoConfiguration.class)
-public class AuthsecurityApplication {
+public class AuthSecurityApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(AuthsecurityApplication.class, args);
+		SpringApplication.run(AuthSecurityApplication.class, args);
 	}
 
 }

@@ -1,10 +1,10 @@
-dspring:
+spring:
   cloud:
     gateway:
       default-filters:
         - TokenRelay
       routes:
-        - id:  c-d-p server
+        - id:  c-d-pserver
           uri:  http://127.0.0.1:8280/rest
           predicates:
             -  Path=/**
