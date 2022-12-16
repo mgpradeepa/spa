@@ -11,8 +11,8 @@
 FROM openjdk:17-alpine3.14 as build
 WORKDIR /workspace/app
 
-COPY mvnw .
-#COPY .mvn .mvn
+COPY spamod/mvnw .
+COPY spamod/.mvn .mvn
 COPY pom.xml .
 COPY src src
 
