@@ -14,7 +14,7 @@ WORKDIR /workspace/app
 COPY spamod/mvnw .
 COPY spamod/.mvn .mvn
 COPY pom.xml .
-COPY src src
+COPY spamod/src src
 
 RUN ./mvnw install -DskipTests
 RUN mkdir -p target/dependency && (cd target/dependency; jar -xf ../*.jar)
