@@ -14,3 +14,5 @@ vcs.xml
 workspace.xml
 springprojectsadv.iml
 */.idea/*
+.idea/*
+

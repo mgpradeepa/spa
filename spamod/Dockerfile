@@ -9,7 +9,7 @@
 
 ## When the file is not there we are trying to build and then publish
 
-FROM openjdk:16-alpine3.13
+FROM openjdk:17-alpine3.14
 
 WORKDIR /app
 COPY .mvn/ .mvn
