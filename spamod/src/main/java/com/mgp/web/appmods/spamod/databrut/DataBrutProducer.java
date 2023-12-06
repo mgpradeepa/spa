@@ -15,7 +15,7 @@ public class DataBrutProducer {
     private String topicName;
 
     public void produce(String message) {
-        CompletableFuture<SendResult<String, String>> future = kafkaTemplate.send(topicName, message).completable();
+        CompletableFuture<SendResult<String, String>> future = kafkaTemplate.send(topicName, message).toCompletableFuture();
         future.whenComplete((result, ex) -> {
             if (ex == null) {
                 System.out.println("Sent message=[" + message + "] with offset=[" + result.getRecordMetadata()

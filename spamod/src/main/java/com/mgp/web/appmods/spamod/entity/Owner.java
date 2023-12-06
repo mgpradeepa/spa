@@ -1,8 +1,9 @@
 package com.mgp.web.appmods.spamod.entity;
 
+import jakarta.persistence.*;
 import lombok.*;
 
-import javax.persistence.*;
+//import javax.persistence.*;
 import java.io.Serializable;
 
 @ToString

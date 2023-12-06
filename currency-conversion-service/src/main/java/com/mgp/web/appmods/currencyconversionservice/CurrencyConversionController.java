@@ -9,50 +9,48 @@ import org.springframework.web.client.RestTemplate;
 
 import java.math.BigDecimal;
 import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
 
 @RestController
 public class CurrencyConversionController {
 
-@Autowired
- CurrencyExchangeProxy currencyExchangeProxy;
-@Autowired
-Environment environment;
+    @Autowired
+    CurrencyExchangeProxy currencyExchangeProxy;
+    @Autowired
+    Environment environment;
 
 
     @GetMapping("/currency-conversion/from/{from}/to/{to}/quantity/{quantity}/")
-    public CurrencyConversion calculateCurrencyConversion(@PathVariable String from, @PathVariable String to , @PathVariable BigDecimal quantity){
+    public CurrencyConversion calculateCurrencyConversion(@PathVariable String from, @PathVariable String to, @PathVariable BigDecimal quantity) {
 
 
         // for variables to  pass as hashmap
 
-        var uriVars = new HashMap<String, String >();
+        var uriVars = new HashMap<String, String>();
         uriVars.put("from", from);
         uriVars.put("to", to);
-       var responseEntity = new RestTemplate().getForEntity("http://localhost:8001/currency-exchange/from/{from}/to/{to}",
+        var responseEntity = new RestTemplate().getForEntity("http://localhost:8001/currency-exchange/from/{from}/to/{to}",
                 CurrencyConversion.class, uriVars);
-       var currencyConversion = responseEntity.getBody();
+        var currencyConversion = responseEntity.getBody();
 //        var port = environment.getProperty("local.server.port");
 //        currencyConversion.setEnvironment(port);
         return new CurrencyConversion(currencyConversion.getId()
-                , from, to , quantity,
+                , from, to, quantity,
                 currencyConversion.getConversionValue(), quantity.multiply(currencyConversion.getConversionValue()), currencyConversion.getEnvironment());
 
     }
 
     @GetMapping("/currency-conversion-feign/from/{from}/to/{to}/quantity/{quantity}/")
-    public CurrencyConversion calculateCurrencyConversionFeign(@PathVariable String from, @PathVariable String to , @PathVariable BigDecimal quantity){
+    public CurrencyConversion calculateCurrencyConversionFeign(@PathVariable String from, @PathVariable String to, @PathVariable BigDecimal quantity) {
 
         // for variables to  pass as hashmap
 
         var currencyConversion = currencyExchangeProxy.retrieveChangeVariables(from, to);
 //        currencyConversion.setEnvironment(Objects.requireNonNull(environment.getProperty("local.server.port")));
         return new CurrencyConversion(currencyConversion.getId()
-                , from, to , quantity,
+                , from, to, quantity,
                 currencyConversion.getConversionValue(),
                 quantity.multiply(currencyConversion.getConversionValue()),
-                currencyConversion.getEnvironment() + " feign" );
+                currencyConversion.getEnvironment() + " feign");
 
     }
 }
