@@ -2,7 +2,7 @@ package com.mgp.web.appmods.spamod.entity;
 
 import lombok.*;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 import java.io.Serializable;
 
 @ToString
