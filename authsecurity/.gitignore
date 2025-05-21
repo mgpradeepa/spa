@@ -11,6 +11,7 @@ vcs.xml
 workspace.xml
 springprojectsadv.iml
 */.idea/*
+.idea/*
 
 ### STS ###
 .apt_generated

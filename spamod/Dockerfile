@@ -5,9 +5,6 @@
 #COPY ${JAR_FILE} app.jar
 #ENTRYPOINT ["java","-jar","/app.jar"]
 
-
-
-
 FROM openjdk:17-alpine3.14 as build
 WORKDIR /workspace/app
 

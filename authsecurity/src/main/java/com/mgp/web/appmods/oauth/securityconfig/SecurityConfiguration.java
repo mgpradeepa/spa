@@ -1,27 +1,24 @@
 package com.mgp.web.appmods.oauth.securityconfig;
 
+import org.springframework.context.annotation.Bean;
+import org.springframework.security.config.annotation.method.configuration.EnableReactiveMethodSecurity;
+import org.springframework.security.config.annotation.web.reactive.EnableWebFluxSecurity;
 import org.springframework.security.config.web.server.ServerHttpSecurity;
 import org.springframework.security.web.server.SecurityWebFilterChain;
-import org.springframework.stereotype.Component;
 
-@Component
+//@Configuration
+@EnableWebFluxSecurity
+@EnableReactiveMethodSecurity
 public class SecurityConfiguration {
 
+    @Bean
     public SecurityWebFilterChain springSecurityFilterChain(ServerHttpSecurity http){
         http.authorizeExchange()
-                .pathMatchers("/actuator/**")
-                .permitAll()
-
+                .anyExchange().authenticated()
+                .and().oauth2Login()
                 .and()
-
-                .authorizeExchange()
-                .anyExchange()
-                .authenticated()
-
-                .and()
-
-                .oauth2Login();
-
+                .oauth2ResourceServer()
+                .jwt();
         return http.build();
     }
 }

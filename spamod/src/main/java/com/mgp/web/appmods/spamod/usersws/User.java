@@ -1,7 +1,7 @@
 package com.mgp.web.appmods.spamod.usersws;
 
-import javax.validation.Valid;
-import javax.validation.constraints.Size;
+import jakarta.validation.constraints.Size;
+
 import java.util.Date;
 
 public class User {
