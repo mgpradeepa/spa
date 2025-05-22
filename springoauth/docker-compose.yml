@@ -1,0 +1,29 @@
+version: "3"
+services:
+  papouatha:
+    container_name: papyotha
+    image: pap-oauth:1.0.0
+    hostname: pap
+    command: java -jar app.jar
+    ports:
+      - 8083:8082
+
+  keycloak:
+    image: quay.io/keycloak/keycloak:26.0.5
+    container_name: keycloak
+    hostname: keycloak
+    environment:
+      KC_BOOTSTRAP_ADMIN_USERNAME: admin
+      KC_BOOTSTRAP_ADMIN_PASSWORD: admin
+      DB_VENDOR: h2
+      KC_HEALTH_ENABLED: "true"
+      KC_LOG_LEVEL: info
+      KC_HTTP_RELATIVE_PATH: "/auth"
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://keycloak:8080/health/ready" ]
+      interval: 15s
+      timeout: 2s
+      retries: 15
+    command: start-dev
+    ports:
+      - 8080:8080
